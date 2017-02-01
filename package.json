@@ -4,7 +4,10 @@
   "description": "A fake HTTP server for modern web development",
   "main": "dist/mirage.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start karma.conf.js",
+    "test:local": "karma start karma.conf.js --local",
+    "build": "webpack --config webpack.config.js -p",
+    "build:dev": "webpack --config webpack.config.js"
   },
   "keywords": [
     "fakes",
