@@ -1,14 +1,16 @@
-# Vue Mirage
+# Mirage
 
-Vue mirage is HTTP mocking library for VueJs. It is quite similar to [Ember Mirage](http://www.ember-cli-mirage.com/) but less opinionated, since Vuejs is no concept of **convention over configuration**.
+Mirage is HTTP mocking library for modern era development. It is quite similar to [Ember Mirage](http://www.ember-cli-mirage.com/) but less opinionated, since is does not targets any library or framework.
 
 ---
+
+> Mirage plays well with any framework of your choice. Whether it is **VueJs**, **React** or **Riot**.
 
 ## Features
 
 Under the hood it supports.
 
-1. Routing
+1. Routing.
 2. Database factories and fakes.
 3. Database fixtures.
 
@@ -26,14 +28,13 @@ Both of the above are hard to setup and maintain in long run. Testing needs to b
 
 ## How it works?
 
-Vue mirage starts simply by intercepting all HTTP requests made by your HTTP library and returns a mocked response. Which means, you won't have to touch a line of code inside your tests or actual code when testing AJAX requests.
+Mirage starts simply by intercepting all Ajax requests made by your Ajax library and returns a mocked response. Which means, you won't have to touch a single line of code inside your tests or actual code when testing AJAX requests.
 
 ### Directory Structure
 
 ```
 |-- mirage
-|---- routes.js
-|---- server.js
+|---- config.js
 |---- blueprints/
 |---- fixtures/
 ```
@@ -46,60 +47,58 @@ You are free to skip the blueprints or fixtures and keep your mirage logic simpl
 ```js
 export default (app) {
   app.get('/users', () => {
-    return {
-      status: 200,
-      body: [{
-        username: 'virk',
-        age: 27
-      }]
-    }
+    const status = 200
+    const headers = {}
+    const body = body: [{
+      username: 'virk',
+      age: 27
+    }]
 
+    return [status, headers, body]
   })
 }
 ```
 
 ### Using Factories and Fakes
 
-Database factories makes it simple to have logic around your mocked server. Returning a list of hardcoded users may be fine for a single scanerio. But think of situations, where you want to perform CRUD operations by showing a list of all the users and then deleting one and making sure new list returns 3.
+Database factories makes it simple to have logic around your mocked server. Returning a list of hardcoded users may be fine for a single scanerio. But think of situations, where you want to perform CRUD operations by showing a list of all the users and then deleting one and making sure new list does not return the deleted user.
 
-**blueprints/user.js**
+**blueprints/users.js**
+```js
+export default (faker, i) {
+  return {
+    id: i + 1,
+    username: faker.username(),
+    password: faker.password()
+  }
+}
+```
+
 ```js
 // fetching a single user
-app.get('/user/:id', (request, db) => {
+app.get('/users/:id', (request, db) => {
   const userId = request.input('id')
-  const user = db.get('user').findBy('id', userId)
-
-  return {
-    status: 200,
-    body: user
-  }
+  const user = db.get('users').findBy('id', userId)
+  return [200, {}, user]
 })
 
 // removing user
-app.delete('/user/:id', (request, db) => {
+app.delete('/users/:id', (request, db) => {
   const userId = request.input('id')
-  db.get('user').deleteBy('id', userId)
-
-  return {
-    status: 200,
-    body: {
-      deleted: true
-    }
-  }
+  db.get('users').lazyFilter((user) => user.id === userId).remove()
+  return [200, {}, {deleted: true}]
 })
 
 // updating user
-app.put('/user/:id', (request, db) => {
+app.put('/users/:id', (request, db) => {
   const userId = request.input('id')
-  const user = db.get('user').findBy('id', userId)
-  user.update({admin: true})
-
-  return {
-    status: 200,
-    body: {
-      updated: true
-    }
-  }
+  
+  db
+    .get('users')
+    .lazyFilter((user) => user.id === userId)
+    .update({admin: true})
+  
+  return [200, {}, {updated: true}]
 })
 ```
 
@@ -109,7 +108,7 @@ app.put('/user/:id', (request, db) => {
 Database has a persistent memory store. Which means changes made to the db while running your tests are persistent. It is a good practice to work with a clean state for each test.
 
 ```js
-import { db } from 'vue-mirage'
+import { db } from 'mirage'
 
 beforeEach(() => {
   db.clear()
@@ -123,7 +122,7 @@ Fixtures are used to seed your database to have your world setup. For example, y
 All fixtures are defined inside `mirage/fixutres` library and they can accessed by the DB instance.
 
 ```js
-import { db } from 'vue-mirage'
-db.loadFixtures() // loads all files from the fixtures directory
+import { db } from 'mirage'
+db.loadFixtures(['locales', 'settings'])
 ```
 

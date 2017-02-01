@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * vue-mirage
+ * mirage
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
@@ -103,18 +103,6 @@ describe('Db', () => {
     const fn = () => db.create('user', {age: 22})
     assert.throw(fn, 'Cannot create data object for user. Make sure you have defined a blueprint for same')
   })
-
-  // it('should return an instance of collection for a given blueprint', () => {
-  //   const db = new Db()
-  //   const userCallback = function () {
-  //     return {
-  //       username: 'virk'
-  //     }
-  //   }
-  //   db.blueprint('user', userCallback)
-  //   db.create('user', {}, 3)
-  //   assert.isTrue(db.get('user').__chain__)
-  // })
 
   it('should return all values by calling fetch method on lodash chain', () => {
     const db = new Db()

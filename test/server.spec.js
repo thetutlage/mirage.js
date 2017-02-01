@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * vue-mirage
+ * mirage
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
@@ -57,7 +57,6 @@ describe('Server', () => {
   })
 
   it('should be able to return a javascript object from the handler', function (done) {
-    let args = {}
     this.server.get('/users', function () {
       return [200, {}, {username: 'virk'}]
     })
@@ -72,7 +71,6 @@ describe('Server', () => {
   })
 
   it('should be able to return null from the handler', function (done) {
-    let args = {}
     this.server.get('/users', function () {
       return [200, {}, null]
     })
@@ -87,7 +85,6 @@ describe('Server', () => {
   })
 
   it('should be able to return a number from the handler', function (done) {
-    let args = {}
     this.server.get('/users', function () {
       return [200, {}, 2]
     })
@@ -102,7 +99,6 @@ describe('Server', () => {
   })
 
   it('should be able to return an array from the handler', function (done) {
-    let args = {}
     this.server.get('/users', function () {
       return [200, {}, [1, 2, 3]]
     })
@@ -117,7 +113,6 @@ describe('Server', () => {
   })
 
   it('should be able to define passthrough url', function (done) {
-    let args = {}
     this.server.passthrough('/users')
 
     axios
@@ -130,7 +125,6 @@ describe('Server', () => {
   })
 
   it('should be able to define multiple passthrough url', function (done) {
-    let args = {}
     this.server.passthrough(['/users', '/settings'])
 
     axios
@@ -147,7 +141,6 @@ describe('Server', () => {
   })
 
   it('should be able to define verbs for the passthrough urls', function (done) {
-    let args = {}
     this.server.passthrough([{
       url: '/users',
       verb: 'GET'
@@ -168,7 +161,6 @@ describe('Server', () => {
   })
 
   it('should be able to define the urls namespace', function (done) {
-    let args = {}
     this.server.setNamespace('api/')
     this.server.get('/users', function () {
       return [200, {}, [1, 2, 3]]
@@ -185,7 +177,6 @@ describe('Server', () => {
 
   it('should load fixtures on demand', function () {
     this.server.shutdown()
-    let args = {}
     const countries = [{
       id: 1,
       name: 'India'
@@ -203,7 +194,6 @@ describe('Server', () => {
 
   it('should load multiple fixtures on demand', function () {
     this.server.shutdown()
-    let args = {}
     const countries = [{
       id: 1,
       name: 'India'
@@ -230,7 +220,6 @@ describe('Server', () => {
 
   it('should register blueprints to the db', function () {
     this.server.shutdown()
-    let args = {}
     const server = new Server(new Db(), {
       users: function () {
         return {

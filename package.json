@@ -1,29 +1,29 @@
 {
-  "name": "vue-mirage",
+  "name": "mirage",
   "version": "1.0.0",
-  "description": "A fake HTTP server for vuejs with supports for adapters",
-  "main": "index.js",
+  "description": "A fake HTTP server for modern web development",
+  "main": "dist/mirage.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "vuejs",
-    "vue-fake",
-    "vue-mocks",
-    "vue-resource"
+    "fakes",
+    "mocks"
   ],
   "author": "amanvirk",
   "license": "MIT",
   "dependencies": {
     "chance": "^1.0.4",
     "lodash": "^4.17.4",
-    "pretender": "^1.4.2"
+    "pretender": "^1.4.2",
+    "slash": "^1.0.0"
   },
   "devDependencies": {
     "axios": "^0.15.3",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-lodash": "^3.2.11",
     "babel-preset-latest": "^6.22.0",
     "chai": "^3.5.0",
     "eslint": "^3.14.1",
@@ -36,7 +36,9 @@
     "karma-mocha": "^1.3.0",
     "karma-webpack": "^2.0.2",
     "mocha": "^3.2.0",
-    "pretender": "^1.4.2",
     "webpack": "^2.2.1"
+  },
+  "directories": {
+    "test": "test"
   }
 }

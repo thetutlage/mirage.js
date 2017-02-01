@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * vue-mirage
+ * mirage
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
@@ -11,6 +11,7 @@
 
 const webpackConfig = require('./webpack.config.js')
 delete webpackConfig.entry
+delete webpackConfig.output
 
 const testType = process.argv.indexOf('--local') > -1 ? 'local' : 'remote'
 const browsers = testType === 'local' ? ['Chrome'] : ['PhantomJS']

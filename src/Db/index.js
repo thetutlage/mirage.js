@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * vue-mirage
+ * mirage
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
@@ -19,6 +19,20 @@ class Db {
     this._collections = {}
     this._collectionsIndex = {}
     this.faker = new Chance()
+    this.faker.mixin({
+      username: (length) => {
+        length = length || 5
+        return this.faker.word({length})
+      },
+
+      password: function (length) {
+        length = length || 20
+        const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+        return _.map(_.range(length), () => {
+          return charset.charAt(Math.floor(Math.random() * charset.length))
+        }).join('')
+      }
+    })
   }
 
   /**

@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * vue-mirage
+ * mirage
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
@@ -13,7 +13,8 @@ module.exports = {
   entry: './index.js',
   output: {
     path: './dist',
-    filename: 'vue-mirage.js'
+    filename: 'mirage.js',
+    libraryTarget: 'commonjs'
   },
   module: {
     rules: [

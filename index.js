@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * vue-mirage
+ * mirage
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
@@ -11,11 +11,10 @@
 
 import Db from './src/Db'
 import Server from './src/Server'
-const db = new Db()
 
-export default {
-  db: db,
-  boot: function (config, blueprints, fixtures) {
+export const db = new Db()
+export const mirage = {
+  perform (config, blueprints, fixtures) {
     const server = new Server(db, blueprints, fixtures)
     config(server)
   }

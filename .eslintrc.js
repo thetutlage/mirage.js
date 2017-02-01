@@ -1,7 +1,7 @@
 'use strict'
 
 /*
- * vue-mirage
+ * mirage
  *
  * (c) Harminder Virk <virk@adonisjs.com>
  *
@@ -16,7 +16,9 @@ module.exports = {
   },
   globals: {
     beforeEach: true,
-    afterEach: true
+    afterEach: true,
+    describe: true,
+    it: true
   },
   extends: 'standard',
   rules: {
