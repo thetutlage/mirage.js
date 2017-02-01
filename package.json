@@ -1,5 +1,5 @@
 {
-  "name": "mirage",
+  "name": "mirage.js",
   "version": "1.0.0",
   "description": "A fake HTTP server for modern web development",
   "main": "dist/mirage.js",
@@ -29,6 +29,7 @@
     "babel-plugin-lodash": "^3.2.11",
     "babel-preset-latest": "^6.22.0",
     "chai": "^3.5.0",
+    "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.14.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-loader": "^1.6.1",
@@ -43,5 +44,10 @@
   },
   "directories": {
     "test": "test"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
