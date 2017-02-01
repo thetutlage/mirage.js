@@ -19,3 +19,5 @@ export const mirage = {
     config(server)
   }
 }
+
+export { default as importAll } from './lib/importAll'
